@@ -20,10 +20,6 @@ matrix:
             - cmake-data
       env: COMPILER=g++-5
 
-branches:
-  only:
-    - detector
-
 before_install:
   - pip install --user cpp-coveralls
   - sudo -H pip install --upgrade requests[security]
