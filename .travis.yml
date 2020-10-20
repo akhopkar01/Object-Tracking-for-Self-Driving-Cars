@@ -39,6 +39,7 @@ install:
   - sudo apt-get install -y x264 v4l-utils
   - git clone https://github.com/opencv/opencv.git
   - git clone https://github.com/opencv/opencv_contrib.git
+  - ls
   - cd opencv
   
   # Create a new 'build' folder
@@ -49,7 +50,7 @@ install:
   - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules/ -D WITH_TBB=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=OFF -D BUILD_EXAMPLES=OFF -D WITH_QT=ON -D WITH_OPENGL=ON ..
 
   # Run 'make' with 8 threads.
-  - make -j4
+  - make -j$(nproc)
   - sudo make install
 
   # Add configuration to OpenCV
