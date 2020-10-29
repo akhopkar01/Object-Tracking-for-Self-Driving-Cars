@@ -57,6 +57,10 @@ install:
 script:
   - echo $(pwd)
   - export CXX=$COMPILER;
+  - mkdir yolo
+  - cd yolo
+  - wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov4.cfg
+  - wget --no-check-certificate 'https://drive.google.com/file/d/1cewMfusmPjYWbrnuJRuKhPMwRe_b9PaT/view' -O yolov4.weights
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
