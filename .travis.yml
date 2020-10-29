@@ -41,20 +41,21 @@ before_script:
   - cd opencv
   - mkdir build
   - cd build
-  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF -D BUILD_opencv_apps=OFF -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D CMAKE_INSTALL_PREFIX=/usr/local ..
+  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules -D BUILD_EXAMPLES=OFF -D BUILD_opencv_apps=OFF -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D CMAKE_INSTALL_PREFIX=/usr/local ..
   - make -j$(nproc)
   - sudo make install
   - sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
   - sudo ldconfig
 
   - cd ../../
+  - echo "OpenCV installation DONE!"
 before_install:
   - pip install --user cpp-coveralls
   - sudo -H pip install --upgrade requests[security] 
 install:
   - sudo apt-get install -y -qq lcov
 script:
-  - bash requirements.sh
+  - echo $(pwd)
   - export CXX=$COMPILER;
   - mkdir build
   - cd build
