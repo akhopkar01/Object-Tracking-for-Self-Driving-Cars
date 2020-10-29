@@ -61,6 +61,7 @@ script:
   - cd yolo
   - wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov4.cfg
   - wget --no-check-certificate 'https://drive.google.com/file/d/1cewMfusmPjYWbrnuJRuKhPMwRe_b9PaT/view' -O yolov4.weights
+  - cd ../
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
