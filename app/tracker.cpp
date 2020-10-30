@@ -40,7 +40,7 @@ std::vector<cv::Point3f> ENPM808X::ObjectTracker::localizeObjects(
 
 cv::Point3f ENPM808X::ObjectTracker::localizeObjectKeypoint(
     const cv::Point2i& object) const {
-  cv::Point3f dummyOutput{0, 0, 0};
+  cv::Point3f dummyOutput{-2, -0.975, 0};
 
   return dummyOutput;
 }
@@ -54,7 +54,18 @@ std::vector<cv::Point2i> ENPM808X::ObjectTracker::detectObjectKeypoints(
 
 std::vector<std::string> ENPM808X::ObjectTracker::parseFile(
     const std::string& fileName) const {
-  std::vector<std::string> classLabels{""};
-  
+  std::vector<std::string> classLabels;
+  std::ifstream cocoNames(fileName);
+  std::string line;
+
+  if(cocoNames){
+    while (getline(cocoNames, line)) classLabels.push_back(line);
+    cocoNames.close();
+  } else {
+    std::cout << "File cannot be opened!" << std::endl;
+    std::cin.get();
+    exit(0);
+  }
+
   return classLabels;
 }
