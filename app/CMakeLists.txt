@@ -1,7 +1,4 @@
-find_package(OpenCV REQUIRED)
-add_executable(shell-app main.cpp tracker.cpp)
-include_directories(
-    ${CMAKE_SOURCE_DIR}/include
-    ${OpenCV_INCLUDE_DIRS}
-)
-target_link_libraries(shell-app ${OpenCV_LIBS})
+file(GLOB src_files *.cpp)
+
+add_executable(app ${src_files})
+target_link_libraries(app ${OpenCV_LIBS})

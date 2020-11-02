@@ -57,15 +57,15 @@ install:
 script:
   - echo $(pwd)
   - export CXX=$COMPILER;
-  - mkdir yolo
-  - cd yolo
+  - mkdir -p models/yolo
+  - cd models/yolo
   - wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov4.cfg
   - wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
   - wget https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names
-  - cd ../
+  - cd ../../
   - mkdir build
   - cd build
-  - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
+  - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Release ../
   - make
   - make code_coverage
   - test/cpp-test
