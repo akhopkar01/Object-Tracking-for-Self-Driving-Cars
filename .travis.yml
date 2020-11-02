@@ -14,7 +14,8 @@ matrix:
             - ubuntu-toolchain-r-test
             - george-edison55-precise-backports
           packages:
-            - g++-5
+            - gcc-6
+            - g++-6
             - cmake
             - cmake-data
             - git
@@ -32,7 +33,7 @@ matrix:
             - libjasper-dev
             - libdc1394-22-dev
             - libboost-all-dev
-      env: COMPILER=g++-5
+      env: COMPILER=g++-6
 #For OpenCV installation
 before_script:
   - git clone https://github.com/opencv/opencv.git
