@@ -33,6 +33,7 @@ matrix:
             - libjasper-dev
             - libdc1394-22-dev
             - libboost-all-dev
+            - libstdc++-7-dev
       env: COMPILER=g++-6
 #For OpenCV installation
 before_script:
@@ -67,7 +68,7 @@ script:
   - cd ../../
   - mkdir build
   - cd build
-  - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Release ../
+  - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
   - make
   - make code_coverage
   - test/cpp-test
