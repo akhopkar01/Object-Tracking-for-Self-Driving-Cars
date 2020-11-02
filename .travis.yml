@@ -14,8 +14,8 @@ matrix:
             - ubuntu-toolchain-r-test
             - george-edison55-precise-backports
           packages:
-            - gcc-6
-            - g++-6
+            - gcc-7
+            - g++-7
             - cmake
             - cmake-data
             - git
@@ -34,7 +34,7 @@ matrix:
             - libdc1394-22-dev
             - libboost-all-dev
             - libstdc++-7-dev
-      env: COMPILER=g++-6
+      env: COMPILER=g++-7
 #For OpenCV installation
 before_script:
   - git clone https://github.com/opencv/opencv.git
@@ -59,6 +59,7 @@ install:
   - sudo apt-get install -y -qq lcov
 script:
   - echo $(pwd)
+  - export CC=gcc-7
   - export CXX=$COMPILER;
   - mkdir -p models/yolo
   - cd models/yolo
