@@ -49,7 +49,8 @@ matrix:
             - libopencore-amrnb-dev
             - libopencore-amrwb-dev
             - libavresample-dev
-            - x264 v4l-utils
+            - x264 
+            - v4l-utils
       env: COMPILER=g++-7
 #For OpenCV installation
 before_script:
