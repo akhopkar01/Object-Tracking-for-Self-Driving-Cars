@@ -19,32 +19,36 @@ matrix:
             - cmake
             - cmake-data
             - git
-            - libgtk2.0-dev
+            - build-essential
+            - checkinstall
             - pkg-config
+            - yasm
+            - gfortran
+            - software-properties-common
+            - libjpeg8-dev
+            - libjasper-dev
+            - libpng12-dev
+            - libtiff5-dev
             - libavcodec-dev
             - libavformat-dev
-            - python-dev
-            - python-numpy
-            - libtbb2
+            - libswscale-dev
+            - libdc1394-22-dev
+            - libxine2-dev
+            - libv4l-dev
+            - libgstreamer1.0-dev
+            - libgstreamer-plugins-base1.0-dev
+            - libgtk2.0-dev
             - libtbb-dev
+            - qt5-default
             - libatlas-base-dev
             - libfaac-dev
             - libmp3lame-dev
             - libtheora-dev
             - libvorbis-dev
             - libxvidcore-dev
-            - libavresample-dev
-            - libjpeg8-dev
-            - libpng12-dev
-            - libtiff5-dev
-            - libjasper-dev
-            - libgstreamer1.0-dev
-            - libgstreamer-plugins-base1.0-dev
             - libopencore-amrnb-dev
             - libopencore-amrwb-dev
-            - libdc1394-22-dev
-            - libboost-all-dev
-            - libstdc++-7-dev
+            - libavresample-dev
             - x264 v4l-utils
       env: COMPILER=g++-7
 #For OpenCV installation
@@ -53,7 +57,7 @@ before_script:
   # - git clone https://github.com/opencv/opencv_contrib.git
 
   - cd opencv
-  - git checkout master
+  - git checkout 4.5.0
   - mkdir build
   - cd build
   - cmake -D CMAKE_BUILD_TYPE=RELEASE \
