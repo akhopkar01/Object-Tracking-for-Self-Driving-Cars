@@ -27,13 +27,25 @@ matrix:
             - python-numpy
             - libtbb2
             - libtbb-dev
-            - libjpeg-dev
-            - libpng-dev
-            - libtiff-dev
+            - libatlas-base-dev
+            - libfaac-dev
+            - libmp3lame-dev
+            - libtheora-dev
+            - libvorbis-dev
+            - libxvidcore-dev
+            - libavresample-dev
+            - libjpeg8-dev
+            - libpng12-dev
+            - libtiff5-dev
             - libjasper-dev
+            - libgstreamer1.0-dev
+            - libgstreamer-plugins-base1.0-dev
+            - libopencore-amrnb-dev
+            - libopencore-amrwb-dev
             - libdc1394-22-dev
             - libboost-all-dev
             - libstdc++-7-dev
+            - x264 v4l-utils
       env: COMPILER=g++-7
 #For OpenCV installation
 before_script:
@@ -44,10 +56,19 @@ before_script:
   - git checkout master
   - mkdir build
   - cd build
-  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_EXAMPLES=OFF -D BUILD_opencv_apps=OFF -D BUILD_DOCS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_TESTS=OFF -D CMAKE_INSTALL_PREFIX=/usr/local ..
+  - cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_C_EXAMPLES=OFF \
+    -D INSTALL_PYTHON_EXAMPLES=OFF \
+    -D WITH_TBB=ON \
+    -D WITH_V4L=ON \
+    -D WITH_QT=ON \
+    -D WITH_OPENGL=ON \
+    -D BUILD_EXAMPLES=OFF ..
+
   - make -j$(nproc)
   - sudo make install
-  - sudo sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf.d/opencv.conf'
+  - sudo sh -c "echo '/usr/local/lib' >> /etc/ld.so.conf.d/opencv.conf"
   - sudo ldconfig
 
   - cd ../../
