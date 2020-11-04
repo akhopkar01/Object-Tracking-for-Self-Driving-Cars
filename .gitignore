@@ -1,6 +1,5 @@
 # Project-specific files
 yolov?.weights
-testVideo.*
 
 # VS Code files
 .vscode/
