@@ -36,6 +36,7 @@
 #include <vector>
 #include <unordered_set>
 #include <map>
+#include <tuple>
 #include <opencv2/dnn.hpp>
 
 /**
@@ -67,15 +68,15 @@ class ObjectTracker {
    * @param pixel in the image
    * @return 3D location in the robot coordinate system
    */
-  cv::Point3f localizeObjectKeypoint(const cv::Point2i& object) const;
+  cv::Point3f localize(const cv::Point2i& objectKeypoint) const;
 
   /**
-   * @brief Function for detecting objects' keypoints in a given frame
-   * Extracts a single keypoint from every bounding box detection.
+   * @brief Function for detecting objects in a given frame
    * @param frame
-   * @return vector of the objects' keypoints in the image
+   * @return classIds, confidences, bounding boxes
    */
-  std::vector<cv::Point2i> detectObjectKeypoints(cv::Mat frame);
+  std::tuple<std::vector<int>, std::vector<float>, std::vector<cv::Rect>>
+  detectObjects(cv::Mat frame);
 
   /**
    * @brief Getter method for the classes of the pre-trained detection model
@@ -85,6 +86,9 @@ class ObjectTracker {
   std::vector<std::string> datasetLabels() const;
 
  private:
+  void visualize(cv::Mat frame, int classId, float confidence,
+                 const cv::Rect& box, const cv::Point2i& objectKeypoint,
+                 const cv::Point3f& objectLocation, float distance);
   std::vector<std::string> parseFile(const std::string& fileName) const;
 
   std::unordered_set<std::string> objectClasses_;

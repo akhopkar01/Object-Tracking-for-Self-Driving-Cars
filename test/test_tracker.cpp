@@ -31,8 +31,9 @@
  */
 
 #include <gtest/gtest.h>
-#include <opencv2/highgui.hpp>
+
 #include "tracker.h"
+#include "config.h"
 #include "profiler.h"
 
 /**
@@ -41,9 +42,6 @@
 class ObjectTrackerTest : public ::testing::Test {
  protected:
   void SetUp() override {
-    std::unordered_set<std::string> objectClasses{"person"};
-    cv::Matx34f extP{0, 0, 1, -1, 1, 0, 0, 0, 0, 1, 0, 1};
-    cv::Matx33f intP{0.5, 0, 160, 0, 0.5, 160, 0, 0, 1};
     tracker = new ENPM808X::ObjectTracker(objectClasses, extP, intP);
     P = intP * extP;  // camera calibration matrix
   }
@@ -62,8 +60,7 @@ class ObjectTrackerTest : public ::testing::Test {
  */
 TEST_F(ObjectTrackerTest, LocalizationWorks) {
   cv::Point2i pixel_true{140, 120}, pixel_reconstructed;
-  cv::Point3f worldPoint{tracker->localizeObjectKeypoint(
-      pixel_true)};  // ground thruth = [-2, -0.975, 0]
+  cv::Point3f worldPoint{tracker->localize(pixel_true)};
   cv::Matx41f X{worldPoint.x, worldPoint.y, worldPoint.z, 1};
   cv::Matx31f homogeneousPixel{P * X};
   homogeneousPixel /= homogeneousPixel(2);
@@ -79,8 +76,8 @@ TEST_F(ObjectTrackerTest, LocalizationWorks) {
  */
 TEST_F(ObjectTrackerTest, MultipleHumanDetectionWorks) {
   cv::Mat frame{cv::imread("../data/testImage.png")};
-  std::vector<cv::Point2i> detections = tracker->detectObjectKeypoints(frame);
-  EXPECT_EQ(detections.size(), 2);  // there are 2 humans in this test image
+  auto [classIds, confidences, boxes] = tracker->detectObjects(frame);
+  EXPECT_EQ(boxes.size(), 2);  // there are 2 humans in this test image
 }
 
 /**
@@ -101,7 +98,6 @@ TEST_F(ObjectTrackerTest, CocoLabelsAreRead) {
  */
 TEST_F(ObjectTrackerTest, RealtimePerformanceIsAchieved) {
   int FPS_desired{1}, FPS_actual, num_iterations{10};
-  cv::VideoCapture stream("../data/ourvideo.mp4");
   cv::Mat frame;
   {
     ENPM808X::PROFILE_SCOPE("unit test");

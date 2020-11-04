@@ -37,7 +37,7 @@
 
 namespace ENPM808X {
 /**
- * @brief Data structure for holding a scope profiling result 
+ * @brief Data structure for holding a profiling result 
  */
 struct ProfileResult {
   std::string name;

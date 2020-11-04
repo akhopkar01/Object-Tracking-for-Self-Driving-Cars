@@ -31,17 +31,14 @@
  */
 
 #include <iostream>
-#include <opencv2/highgui.hpp>
+
 #include "tracker.h"
+#include "config.h"
 #include "profiler.h"
 
 int main() {
-  cv::VideoCapture stream("../data/ourvideo.mp4");
-  std::unordered_set<std::string> objectClasses{"person", "car"};
-  cv::Mat frame;
-  cv::Matx34f extP{0, 0, 1, -1, 1, 0, 0, 0, 0, 1, 0, 1};
-  cv::Matx33f intP{0.5, 0, 160, 0, 0.5, 160, 0, 0, 1};
   ENPM808X::ObjectTracker tracker(objectClasses, extP, intP);
+  cv::Mat frame;  // system input
   std::vector<cv::Point3f> objectLocations;  // system output
 
   while (stream.read(frame)) {

@@ -1,12 +1,16 @@
-# VS Code files
-*.VC.db*
-.vscode
+# Project-specific files
+yolov?.weights
+testVideo.*
 
-# OS X files
-.DS_Store
+# VS Code files
+.vscode/
 
 # Build artifacts
 build/
 
 # Python
 *.pyc
+
+# OS X files
+.DS_Store
+

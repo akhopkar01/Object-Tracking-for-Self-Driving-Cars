@@ -31,6 +31,7 @@
  */
 
 #include "profiler.h"
+
 #include <cstdio>
 
 ENPM808X::ProfileResult ENPM808X::Timer::profileResult;
@@ -48,7 +49,7 @@ void ENPM808X::Timer::Stop() {
           .time_since_epoch();
   profileResult = {name_, elapsedTime.count()};
   if (name_ != "unit test")
-    printf("%s: time = %dms,  FPS = %.1f\n", profileResult.name.c_str(),
+    printf("%s: time = %lims,  FPS = %.1f\n", profileResult.name.c_str(),
             profileResult.elapsedTime, 1000.0f / profileResult.elapsedTime);
   stopped_ = true;
 }
